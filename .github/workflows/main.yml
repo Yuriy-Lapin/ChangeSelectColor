@@ -27,4 +27,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Print Hello
-        run: echo Hi from &{{matrix.os}}
+        run: echo Hello World
