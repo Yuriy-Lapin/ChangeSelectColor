@@ -1,3 +1,8 @@
 import main
 
-print(main.hello())
+
+def test_main():
+    if main.hello() == 'Hello from Python':
+        print('Test ... OK')
+    else:
+        print('Test ... FAIL')

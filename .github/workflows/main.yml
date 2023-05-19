@@ -28,3 +28,6 @@ jobs:
 
       - name: Print Hello
         run: echo Hello World
+
+      - name: Run tests
+        run: pytest
