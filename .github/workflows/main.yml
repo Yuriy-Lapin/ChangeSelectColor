@@ -1,4 +1,4 @@
-name: Tests
+name: CI develop
 
 on:
   push:
@@ -33,11 +33,11 @@ jobs:
       - name: Run tests with pytest
         run: pytest
 
-      - name: Merge with develop branch
-        if: ${{ github.ref != 'refs/heads/develop' && job.status == 'success' }}
+      - name: Merge with main branch
+        if: ${{ github.ref != 'refs/heads/main' && job.status == 'success' }}
         run: |
           git config --local user.name "${{ github.actor }}"
           git config --local user.email "${{ github.actor }}@users.noreply.github.com"
-          git checkout develop
+          git checkout main
           git merge --no-ff ${{ github.ref }}
-          git push origin develop
+          git push origin main
