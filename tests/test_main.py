@@ -1,4 +1,4 @@
-from ..main import hello
+from sdas.main import hello
 
 
 def test_hello1():
