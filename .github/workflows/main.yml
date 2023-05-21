@@ -35,6 +35,10 @@ jobs:
         run: |
           git config --local user.name "${{ github.actor }}"
           git config --local user.email "${{ github.actor }}@users.noreply.github.com"
-          git checkout main
+          git branch --list
+          git fetch origin
+          git branch --list
+          git checkout main || git checkout -b main origin/main
           git merge --no-ff ${{ github.ref }}
           git push origin main
+
