@@ -1,48 +1,72 @@
 name: CI
 
+# Запускається при пуші у
+# будь яку гуліку, окрім main
 on:
   push:
     branches-ignore:
       - main
 
+# запуск всіх кроків буде відбуватись
+# на двох віртаульних машинках 
+# ( ubuntu-latest, windows-latest )
 jobs:
   test:
     runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
 
     steps:
+      # Копіювання репозиторію
       - name: Checkout repository
-        uses: actions/checkout@v3
-
+        uses: actions/checkout@v2
+      
+      # Налаштуваня Пітону 3.11
       - name: Set up Python 3.11
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v2
         with:
           python-version: 3.11
-
+      
+      # Встановлення потрібних бібліотек
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
+      # Перевірка синтаксису
       - name: Run flake8
         run: flake8
-
+      
+      # Запуск тестів
       - name: Run tests with pytest
         run: pytest
 
-      - name: Merge with main branch
-        if: ${{ github.ref != 'refs/heads/main' && job.status == 'success' }}
-        run: |
-          git config --local user.name "${{ github.actor }}"
-          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
-          git branch --list
-          git fetch origin
-          git branch --list
-          git checkout main || git checkout -b main origin/main
-          git merge --no-ff --allow-unrelated-histories ${{ github.ref }}
-          git push origin main
+      # Запуск аплікації
+      - name: Run Application
+        run: python main.py
 
+      # Генерація статусу білда 
+      - name: Set Build Status
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Build Status
+          body: |
+            Build and test completed successfully.
+            Test coverage: XX%
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+
+#       # Пуш у гілку маін, якщо все працює (не працює)
+#       - name: Merge with main branch
+#         if: ${{ github.ref != 'refs/heads/main' && job.status == 'success' }}
+#         run: |
+#           git config --local user.name "${{ github.actor }}"
+#           git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+#           git branch --list
+#           git fetch origin
+#           git branch --list
+#           git checkout main || git checkout -b main origin/main
+#           git merge --no-ff --allow-unrelated-histories ${{ github.ref }}
+#           git push origin main
 
