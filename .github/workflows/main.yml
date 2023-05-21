@@ -5,7 +5,7 @@ name: CI
 on:
   push:
     tags:
-      - 'v\d+\.\d+'
+      - v1.0
       
     branches-ignore:
       - main
