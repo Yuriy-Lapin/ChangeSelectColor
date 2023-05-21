@@ -39,6 +39,7 @@ jobs:
           git fetch origin
           git branch --list
           git checkout main || git checkout -b main origin/main
-          git merge --no-ff ${{ github.ref }}
+          git merge --no-ff --allow-unrelated-histories ${{ github.ref }}
           git push origin main
+
 
