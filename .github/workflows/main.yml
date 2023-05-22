@@ -48,20 +48,44 @@ jobs:
       # Запуск аплікації
       - name: Run Application
         run: python main.py
-
+        
       # Генерація статусу білда
-      - name: Set Build Status
-        uses: softprops/action-gh-release@v1
+      - name: Create status check
+        uses: actions/github-script@v5
         with:
-          name: Build Status
-          body: |
-            Build and test completed successfully.
-            Test coverage: XX%
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const context = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+            };
+            const { data: createCheckResult } = await github.checks.create({
+              ...context,
+              name: 'Build and Test',
+              head_sha: context.sha,
+              status: 'completed',
+              conclusion: '${{ steps.status-check.outputs.status }}',
+              output: {
+                title: 'Build and Test',
+                summary: '${{ steps.status-check.outputs.status }}',
+              },
+            });
+
 
 
 
 #       # Генерація статусу білда 2
+#       - name: Set Build Status
+#         uses: softprops/action-gh-release@v1
+#         with:
+#           name: Build Status
+#           body: |
+#             Build and test completed successfully.
+#             Test coverage: XX%
+#           token: ${{ secrets.GITHUB_TOKEN }}
+
+#       # Генерація статусу білда 3
 #       - name: Set status check
 #         uses: actions/github-script@v4
 #         with:
