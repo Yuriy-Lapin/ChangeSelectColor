@@ -4,9 +4,6 @@ name: CI
 # будь яку гуліку, окрім main
 on:
   push:
-    tags:
-      - v1.1
-      
     branches-ignore:
       - main
 
@@ -50,20 +47,27 @@ jobs:
         run: python main.py
         
       # Генерація статусу білда
+      - name: Set status check
+        id: status-check
+        run: |
+          if [ $? -eq 0 ]; then
+            echo "Build and test completed successfully"
+            echo "::set-output name=status::success"
+          else
+            echo "Build and test failed"
+            echo "::set-output name=status::failure"
+          fi
+          
       - name: Create status check
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const context = {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.sha,
-            };
             const { data: createCheckResult } = await github.checks.create({
-              ...context,
+              owner: process.env.GITHUB_REPOSITORY_OWNER,
+              repo: process.env.GITHUB_REPOSITORY,
               name: 'Build and Test',
-              head_sha: context.sha,
+              head_sha: process.env.GITHUB_SHA,
               status: 'completed',
               conclusion: '${{ steps.status-check.outputs.status }}',
               output: {
