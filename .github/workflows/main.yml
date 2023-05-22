@@ -49,24 +49,34 @@ jobs:
       - name: Run Application
         run: python main.py
 
-      # Генерація статусу білда 
-      - name: Set status check
-        uses: actions/github-script@v4
+      # Генерація статусу білда
+      - name: Set Build Status
+        uses: softprops/action-gh-release@v1
         with:
-          script: |
-            const token = process.env.GITHUB_TOKEN;
-            const octokit = new (require('octokit'))({ auth: token });
-
-            octokit.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.sha,
-              state: 'success',
-              context: 'Build Status',
-              description: 'The build was successful!',
-            });
+          name: Build Status
+          body: |
+            Build and test completed successfully.
+            Test coverage: XX%
+          token: ${{ secrets.GITHUB_TOKEN }}
 
 
+
+#       # Генерація статусу білда 2
+#       - name: Set status check
+#         uses: actions/github-script@v4
+#         with:
+#           script: |
+#             const token = process.env.GITHUB_TOKEN;
+#             const octokit = new (require('octokit'))({ auth: token });
+
+#             octokit.repos.createCommitStatus({
+#               owner: context.repo.owner,
+#               repo: context.repo.repo,
+#               sha: context.sha,
+#               state: 'success',
+#               context: 'Build Status',
+#               description: 'The build was successful!',
+#             });
 
 #       # Пуш у гілку маін, якщо все працює (не працює)
 #       - name: Merge with main branch
