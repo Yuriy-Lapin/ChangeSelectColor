@@ -20,11 +20,11 @@ jobs:
     steps:
       # Копіювання репозиторію
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       
       # Налаштуваня Пітону 3.11
       - name: Set up Python 3.11
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: 3.11
       
@@ -46,88 +46,6 @@ jobs:
       - name: Run Application
         run: python main.py
         
+      - name: All done
+        run: echo Everything is fine, have a nice day
         
-        
-        
-#       - name: Generate build status
-#         run: |
-#           # Generate build status here
-#           # Example: echo "Build succeeded" > build_status.txt
-#           echo "Build succeeded" > build_status.txt
-
-#       - name: Upload build status
-#         uses: actions/upload-artifact@v2
-#         with:
-#           name: Build Status
-#           path: build_status.txt
-        
-        
-#       # Генерація статусу білда
-#       - name: Set status check
-#         id: status-check
-#         run: |
-#           if [ $? -eq 0 ]; then
-#             echo "Build and test completed successfully"
-#             echo "::set-output name=status::success"
-#           else
-#             echo "Build and test failed"
-#             echo "::set-output name=status::failure"
-#           fi
-#       - name: Create status check
-#         uses: actions/github-script@v5
-#         with:
-#           github-token: ${{ secrets.GITHUB_TOKEN }}
-#           script: |
-#             const { data: createCheckResult } = await github.checks.create({
-#               owner: process.env.GITHUB_REPOSITORY_OWNER,
-#               repo: process.env.GITHUB_REPOSITORY,
-#               name: 'Build and Test',
-#               head_sha: process.env.GITHUB_SHA,
-#               status: 'completed',
-#               conclusion: '${{ steps.status-check.outputs.status }}',
-#               output: {
-#                 title: 'Build and Test',
-#                 summary: '${{ steps.status-check.outputs.status }}',
-#               },
-#             });
-
-#       # Генерація статусу білда 2
-#       - name: Set Build Status
-#         uses: softprops/action-gh-release@v1
-#         with:
-#           name: Build Status
-#           body: |
-#             Build and test completed successfully.
-#             Test coverage: XX%
-#           token: ${{ secrets.GITHUB_TOKEN }}
-
-#       # Генерація статусу білда 3
-#       - name: Set status check
-#         uses: actions/github-script@v4
-#         with:
-#           script: |
-#             const token = process.env.GITHUB_TOKEN;
-#             const octokit = new (require('octokit'))({ auth: token });
-
-#             octokit.repos.createCommitStatus({
-#               owner: context.repo.owner,
-#               repo: context.repo.repo,
-#               sha: context.sha,
-#               state: 'success',
-#               context: 'Build Status',
-#               description: 'The build was successful!',
-#             });
-
-#       # Пуш у гілку маін, якщо все працює (не працює)
-#       - name: Merge with main branch
-#         if: ${{ github.ref != 'refs/heads/main' && job.status == 'success' }}
-#         run: |
-#           git config --local user.name "${{ github.actor }}"
-#           git config --local user.email "${{ github.actor }}@users.noreply.github.com"
-#           git branch --list
-#           git fetch origin
-#           git branch --list
-#           git checkout main || git checkout -b main origin/main
-#           git merge --no-ff --allow-unrelated-histories ${{ github.ref }}
-#           git push origin main
-
