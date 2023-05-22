@@ -50,14 +50,22 @@ jobs:
         run: python main.py
 
       # Генерація статусу білда 
-      - name: Set Build Status
-        uses: softprops/action-gh-release@v1
+      - name: Set status check
+        uses: actions/github-script@v4
         with:
-          name: Build Status
-          body: |
-            Build and test completed successfully.
-            Test coverage: XX%
-          token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const token = process.env.GITHUB_TOKEN;
+            const octokit = new (require('octokit'))({ auth: token });
+
+            octokit.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'success',
+              context: 'Build Status',
+              description: 'The build was successful!',
+            });
+
 
 
 #       # Пуш у гілку маін, якщо все працює (не працює)
