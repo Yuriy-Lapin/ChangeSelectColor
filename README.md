@@ -7,5 +7,5 @@ Software Development Automation System
   
   [![Nightly Tests](https://github.com/Yuriy-Lapin/sdas/actions/workflows/nightly-test.yml/badge.svg)](https://github.com/Yuriy-Lapin/sdas/actions/workflows/nightly-test.yml)
   
-</>
+</div>
 
