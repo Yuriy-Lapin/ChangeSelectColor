@@ -1,7 +1,7 @@
 # Main branch
 Software Development Automation System
 
-<div text-align=center>
+<div style="text-align=center">
   
   [![CI](https://github.com/Yuriy-Lapin/sdas/actions/workflows/main.yml/badge.svg)](https://github.com/Yuriy-Lapin/sdas/actions/workflows/main.yml)
   
