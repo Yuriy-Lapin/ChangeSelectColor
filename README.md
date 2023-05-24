@@ -2,7 +2,7 @@
 Software Development Automation System
 
 <div align="center">
-  [![CI](https://github.com/Yuriy-Lapin/sdas/actions/workflows/main.yml/badge.svg)](https://github.com/Yuriy-Lapin/sdas/actions/workflows/main.yml)
+[![CI](https://github.com/Yuriy-Lapin/sdas/actions/workflows/main.yml/badge.svg)](https://github.com/Yuriy-Lapin/sdas/actions/workflows/main.yml)
 </div>
 
 
