@@ -14,17 +14,20 @@ jobs:
       # Тут можуть бути ваші тести
 
       - name: Create Release
+        id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          RELEASE_NAME="Release Name"
+          RELEASE_NAME="Your Release Name"
           RELEASE_TAG="v1.0.0"
-          RELEASE_BODY="Туть опис"
+          RELEASE_BODY="Your release notes or description"
           REPO_OWNER="${{ github.repository_owner }}"
-          REPO_NAME="${{ github.event.repository.name }}"
+          REPO_NAME="${{ github.repository }}"
+          
+          API_URL="https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases"
           
           RESPONSE=$(curl -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Authorization: token $GITHUB_TOKEN" \
             -H "Content-Type: application/json" \
             -d '{
               "tag_name": "'"$RELEASE_TAG"'",
@@ -34,21 +37,25 @@ jobs:
               "draft": false,
               "prerelease": false
             }' \
-            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases")
+            "$API_URL")
           
           RELEASE_ID=$(echo "$RESPONSE" | jq -r '.id')
-          echo "Created release with ID: $RELEASE_ID"
-          
-          
+          echo "::set-output name=release_id::$RELEASE_ID"
+      
       - name: Publish Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           RELEASE_ID="${{ steps.create_release.outputs.release_id }}"
           REPO_OWNER="${{ github.repository_owner }}"
-          REPO_NAME="${{ github.event.repository.name }}"
+          REPO_NAME="${{ github.repository }}"
           
-          curl -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/$RELEASE_ID/publish"
-
+          API_URL="https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/$RELEASE_ID"
+          
+          curl -X PATCH \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "draft": false
+            }' \
+            "$API_URL"
