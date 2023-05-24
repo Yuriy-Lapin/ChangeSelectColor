@@ -11,26 +11,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.11
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Build and package
-        run: python main.py
+      # Тут можуть бути ваші тести
 
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          RELEASE_NAME="Your Release Name"
+          RELEASE_NAME="Release Name"
           RELEASE_TAG="v1.0.0"
-          RELEASE_BODY="Your release notes or description"
+          RELEASE_BODY="Туть опис"
           REPO_OWNER="${{ github.repository_owner }}"
           REPO_NAME="${{ github.event.repository.name }}"
           
@@ -49,16 +38,17 @@ jobs:
           
           RELEASE_ID=$(echo "$RESPONSE" | jq -r '.id')
           echo "Created release with ID: $RELEASE_ID"
+          
+          
+      - name: Publish Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          RELEASE_ID="${{ steps.create_release.outputs.release_id }}"
+          REPO_OWNER="${{ github.repository_owner }}"
+          REPO_NAME="${{ github.event.repository.name }}"
+          
+          curl -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/$RELEASE_ID/publish"
 
-#       - name: Create Archive
-#         run: zip -r release.zip .
-
-#       - name: Upload Release Asset
-#         uses: actions/upload-release-asset@v1
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         with:
-#           upload_url: ${{ steps.create_release.outputs.upload_url }}
-#           asset_path: ./release.zip
-#           asset_name: release.zip
-#           asset_content_type: application/zip
