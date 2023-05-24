@@ -25,26 +25,40 @@ jobs:
         run: python main.py
 
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ github.run_number }}
-          release_name: Release v${{ github.run_number }}
-          body: |
-            Опис релізу
-            Може бути декілька рядків
+        run: |
+          RELEASE_NAME="Your Release Name"
+          RELEASE_TAG="v1.0.0"
+          RELEASE_BODY="Your release notes or description"
+          REPO_OWNER="${{ github.repository_owner }}"
+          REPO_NAME="${{ github.event.repository.name }}"
+          
+          RESPONSE=$(curl -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "tag_name": "'"$RELEASE_TAG"'",
+              "target_commitish": "main",
+              "name": "'"$RELEASE_NAME"'",
+              "body": "'"$RELEASE_BODY"'",
+              "draft": false,
+              "prerelease": false
+            }' \
+            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases")
+          
+          RELEASE_ID=$(echo "$RESPONSE" | jq -r '.id')
+          echo "Created release with ID: $RELEASE_ID"
 
-      - name: Create Archive
-        run: zip -r release.zip .
+#       - name: Create Archive
+#         run: zip -r release.zip .
 
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release.zip
-          asset_name: release.zip
-          asset_content_type: application/zip
+#       - name: Upload Release Asset
+#         uses: actions/upload-release-asset@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+#           upload_url: ${{ steps.create_release.outputs.upload_url }}
+#           asset_path: ./release.zip
+#           asset_name: release.zip
+#           asset_content_type: application/zip
