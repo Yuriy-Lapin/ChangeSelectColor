@@ -1,0 +1,21 @@
+name: Merge to Main
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  merge_to_main:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Merge to Main
+        run: |
+          git config --local user.name "${{ github.actor }}"
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git merge --no-ff develop -m "Merge develop to main"
+          git push origin main
