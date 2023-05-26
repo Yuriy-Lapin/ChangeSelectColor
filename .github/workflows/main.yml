@@ -37,9 +37,9 @@ jobs:
       # Я хз що це
       - name: Set up Xvfb
         uses: coactions/setup-xvfb@v1
-          run: |
-            pytest
-            python main.py
+        run: |
+          pytest
+          python main.py
 
       # # Запуск тестів
       # - name: Run tests with pytest
