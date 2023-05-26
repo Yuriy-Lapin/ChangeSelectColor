@@ -1,3 +1,2 @@
 customtkinter
-pytest-xvfb
 pytest

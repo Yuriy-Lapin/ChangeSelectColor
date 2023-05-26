@@ -32,17 +32,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Я хз що це
+      # Налаштування віртуального монітору для запуску тестів
       - name: Set up Xvfb
-        if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get install xvfb
           sudo Xvfb :99 -ac &
+        on_fail:
+          - name: Set up Xvfb
+            run: echo This step is skipped for Windows
 
       - name: Set display variable
-        if: matrix.os == 'ubuntu-latest'
         run: export DISPLAY=:99
+        on_fail:
+          - name: Set display variable
+            run: echo This step is skipped for Windows
 
       # Запуск тестів
       - name: Run tests with pytest
