@@ -38,15 +38,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install xvfb
           sudo Xvfb :99 -ac &
-        on_fail:
-          - name: Set up Xvfb
-            run: echo This step is skipped for Windows
+          if [ ${{ job.status }} != "success" ]; then
+            echo "This step cannot proceed on Windows."
+            exit 1
+          fi
 
       - name: Set display variable
-        run: export DISPLAY=:99
-        on_fail:
-          - name: Set display variable
-            run: echo This step is skipped for Windows
+        run: |
+          export DISPLAY=:99
+          if [ ${{ job.status }} != "success" ]; then
+            echo "This step cannot proceed on Windows."
+            exit 1
+          fi
 
       # Запуск тестів
       - name: Run tests with pytest
