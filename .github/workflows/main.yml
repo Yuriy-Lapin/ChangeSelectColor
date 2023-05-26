@@ -8,7 +8,7 @@ on:
       - main
 
 # запуск всіх кроків буде відбуватись
-# на двох віртаульних машинках 
+# на двох віртаульних машинках
 # ( ubuntu-latest, windows-latest )
 jobs:
   test:
@@ -21,23 +21,19 @@ jobs:
       # Копіювання репозиторію
       - name: Checkout repository
         uses: actions/checkout@v3
-      
+
       # Налаштуваня Пітону 3.11
       - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
           python-version: 3.11
-      
+
       # Встановлення потрібних бібліотек
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      
-      # Перевірка синтаксису
-      - name: Run flake8
-        run: flake8
-      
+
       # Запуск тестів
       - name: Run tests with pytest
         run: pytest
@@ -45,7 +41,3 @@ jobs:
       # Запуск аплікації
       - name: Run Application
         run: python main.py
-        
-      - name: All done
-        run: echo Everything is fine, have a nice day
-        

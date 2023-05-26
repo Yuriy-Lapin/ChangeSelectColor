@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from random import randint as rand
+
 import os
 
 

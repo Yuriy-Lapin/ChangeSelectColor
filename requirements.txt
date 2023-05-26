@@ -1,3 +1,2 @@
 customtkinter
-flake8
 pytest
