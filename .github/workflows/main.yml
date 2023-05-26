@@ -34,6 +34,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # Я хз що це
+      - name: Set up Xvfb
+        uses: coactions/setup-xvfb@v1
+
       # Запуск тестів
       - name: Run tests with pytest
         run: pytest
