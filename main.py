@@ -14,7 +14,7 @@ class App(ctk.CTk):
         super().__init__()
 
         self.title("Custom Select Color")
-        self.geometry(f"{350}x{700}")
+        self.geometry(f"{350}x{700}+{100}+{100}")
         self.resizable(False, False)
 
         # 0 - red, 1 - green, 2 - blue
