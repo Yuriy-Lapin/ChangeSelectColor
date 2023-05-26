@@ -42,4 +42,5 @@ jobs:
 
       # Запуск тестів
       - name: Run tests with pytest
+
         run: pytest
