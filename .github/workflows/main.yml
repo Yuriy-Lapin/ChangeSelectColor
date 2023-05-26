@@ -41,7 +41,7 @@ jobs:
           run: |
             pytest
             python main.py
-          options: "0 350x700x24"
+          options: "0 1280x720x24"
 
       # # Запуск тестів
       # - name: Run tests with pytest
