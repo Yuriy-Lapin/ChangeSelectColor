@@ -36,7 +36,7 @@ jobs:
 
       # Я хз що це
       - name: Set up Xvfb
-        run: apt-get install xvfb
+        run: sudo apt-get install xvfb
 
         #   pytest
         #   python main.py
