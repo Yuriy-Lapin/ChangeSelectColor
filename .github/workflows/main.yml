@@ -46,7 +46,7 @@ jobs:
 
       # Запуск тестів
       - name: Run tests with pytest
-        run: xvfb-run python -m pytest
+        run: pytest
 
       # Запуск аплікації
       - name: Run Application
