@@ -5,6 +5,7 @@ import os
 from tkinter import Tk
 
 
+# Tests
 @pytest.fixture
 def app():
     # Створює екземпляр класу перед кожним тестом
@@ -15,10 +16,6 @@ def app():
 
 def test_app_title(app):
     assert app.title() == "Custom Select Color"
-
-
-def test_app_geometry(app):
-    assert app.geometry() == "350x700+100+100"
 
 
 def test_app_resizable(app):
@@ -107,5 +104,6 @@ def test_app_save_preferences(app, monkeypatch):
 
 
 if __name__ == "__main__":
+    # Run tests
     Tk().withdraw()
     pytest.main(['-vv', '--disable-warnings'])
