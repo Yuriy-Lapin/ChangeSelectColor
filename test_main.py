@@ -1,10 +1,13 @@
+# imports
 import main
 
 import pytest
 import os
 from tkinter import Tk
+from xvfbwrapper import Xvfb
 
 
+# Tests
 @pytest.fixture
 def app():
     # Створює екземпляр класу перед кожним тестом
@@ -107,5 +110,13 @@ def test_app_save_preferences(app, monkeypatch):
 
 
 if __name__ == "__main__":
+    # Setup virtual display
+    xvfb = Xvfb(width=1280, height=720)
+    xvfb.start()
+
+    # Run tests
     Tk().withdraw()
     pytest.main(['-vv', '--disable-warnings'])
+
+    # Stop virtual display
+    xvfb.stop()
