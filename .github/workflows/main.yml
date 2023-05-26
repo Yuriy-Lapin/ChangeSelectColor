@@ -36,17 +36,16 @@ jobs:
 
       # Я хз що це
       - name: Set up Xvfb
-        uses: coactions/setup-xvfb@v1
-        with:
-          run: |
-            pytest
-            python main.py
-          options: "0 1280x720x24"
+        run: apt-get install xvfb
 
-      # # Запуск тестів
-      # - name: Run tests with pytest
-      #   run: pytest
+        #   pytest
+        #   python main.py
+        # options: "0 1280x720x24"
 
-      # # Запуск аплікації
-      # - name: Run Application
-      #   run: python main.py
+      # Запуск тестів
+      - name: Run tests with pytest
+        run: xvfb-run python -m pytest
+
+      # Запуск аплікації
+      - name: Run Application
+        run: python main.py
