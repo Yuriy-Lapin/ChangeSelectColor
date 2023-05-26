@@ -1,5 +1,4 @@
 customtkinter
-random
 os
 flake8
 pytest
