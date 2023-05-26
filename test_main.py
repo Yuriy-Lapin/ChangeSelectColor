@@ -108,7 +108,7 @@ def test_app_save_preferences(app, monkeypatch):
 
 
 if __name__ == "__main__":
-    os.environ['DISPLAY'] = ':0'
+    os.environ['DISPLAY'] = ':99'
 
     # Run tests
     Tk().withdraw()
