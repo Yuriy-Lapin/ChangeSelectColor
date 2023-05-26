@@ -3,7 +3,6 @@ import main
 import pytest
 import os
 from tkinter import Tk
-from xvfbwrapper import Xvfb
 
 
 # Tests
@@ -109,13 +108,8 @@ def test_app_save_preferences(app, monkeypatch):
 
 
 if __name__ == "__main__":
-    # Setup virtual display
-    xvfb = Xvfb(width=1280, height=720)
-    xvfb.start()
+    os.environ['DISPLAY'] = ':0'
 
     # Run tests
     Tk().withdraw()
     pytest.main(['-vv', '--disable-warnings'])
-
-    # Stop virtual display
-    xvfb.stop()
