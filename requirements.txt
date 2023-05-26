@@ -1,4 +1,3 @@
 customtkinter
-os
 flake8
 pytest
