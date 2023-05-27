@@ -1,2 +1,4 @@
 customtkinter
+pyinstaller
+pytest-xvfb
 pytest

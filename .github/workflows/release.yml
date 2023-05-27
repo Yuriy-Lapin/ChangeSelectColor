@@ -1,0 +1,51 @@
+name: Build and Publish Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build package
+        run: pyinstaller --noconfirm --onefile --windowed --icon "pictures/icon.ico" --add-data "ForCustomTkinter/customtkinter;customtkinter/"  "csc.py"
+
+      - name: Get latest release version
+        id: get_latest_release
+        run: echo ::set-output name=version::$(git describe --tags --abbrev=0)
+
+      - name: Create new release version
+        id: create_release
+        run: |
+          VERSION=${{ steps.get_latest_release.outputs.version }}
+          IFS='.' read -r major minor patch <<< "$VERSION"
+          NEW_VERSION="$major.$minor.$((patch + 1))"
+          echo ::set-output name=version::$NEW_VERSION
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            dist/*
+          tag_name: ${{ steps.create_release.outputs.version }}
+          release_name: Release ${{ steps.create_release.outputs.version }}
+          draft: false
+          prerelease: false
