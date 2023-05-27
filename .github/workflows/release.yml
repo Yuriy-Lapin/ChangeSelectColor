@@ -25,7 +25,7 @@ jobs:
       
       - name: AAAAAAA
         run: |
-          cd /opt/hostedtoolcache/Python/3.11.3/
+          cd /opt/hostedtoolcache/Python/3.11.3/x64/
           ls
       
       - name: Build package
