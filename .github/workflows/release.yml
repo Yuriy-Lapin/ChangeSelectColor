@@ -5,8 +5,6 @@ on:
     branches:
       - main
 
-    tags:
-      - "v*"
 
 jobs:
   release:
@@ -33,6 +31,15 @@ jobs:
       - name: Build package
         run: pyinstaller --noconfirm --onefile --windowed --icon "pictures/icon.ico" --add-data "/opt/hostedtoolcache/Python/3.11.3/x64/lib/python3.11/site-packages/customtkinter:customtkinter"  "csc.py"
 
+
+     - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            dist/csc.exe
+
+
       # - name: Create GitHub release
       #   id: create-new-release
       #   uses: actions/create-release@v1
@@ -55,17 +62,17 @@ jobs:
       #     asset_name: csc-v${{ github.run_number }}.exe
       #     asset_content_type: application/exe
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          draft: false
-          prerelease: false
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: Release ${{ github.ref }}
+      #     body: |
+      #       Changes in this Release
+      #       - First Change
+      #       - Second Change
+      #     draft: false
+      #     prerelease: false
