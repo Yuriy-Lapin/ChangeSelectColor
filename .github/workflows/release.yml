@@ -5,7 +5,6 @@ on:
     branches:
       - main
 
-
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -31,14 +30,12 @@ jobs:
       - name: Build package
         run: pyinstaller --noconfirm --onefile --windowed --icon "pictures/icon.ico" --add-data "/opt/hostedtoolcache/Python/3.11.3/x64/lib/python3.11/site-packages/customtkinter:customtkinter"  "csc.py"
 
-
-     - name: Release
+      - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
             dist/csc.exe
-
 
       # - name: Create GitHub release
       #   id: create-new-release
