@@ -25,7 +25,7 @@ jobs:
       
       - name: AAAAAAA
         run: |
-          cd /opt/hostedtoolcache/
+          cd /opt/hostedtoolcache/Python/
           ls
       
       - name: Build package
