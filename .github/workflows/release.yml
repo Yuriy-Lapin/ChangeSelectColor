@@ -40,7 +40,7 @@ jobs:
           release_name: Release ${{ github.run_number }}
 
       - name: Debug
-        run: echo "Upload URL: ${{ steps.create-new-release.outputs.upload_url }}"
+        run: echo Upload URL: ${{ steps.create-new-release.outputs.upload_url }}
 
 
       - name: Upload release assets
