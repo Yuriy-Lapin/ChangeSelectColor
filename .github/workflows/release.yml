@@ -25,7 +25,7 @@ jobs:
       
       - name: AAAAAAA
         run: |
-          cd home/runner
+          cd /opt/hostedtoolcache/
           ls
       
       - name: Build package
