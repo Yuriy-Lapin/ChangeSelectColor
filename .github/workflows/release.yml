@@ -22,7 +22,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
+      
+      - name: AAAAAAA
+        run: |
+          cd home/runner
+          ls
+      
       - name: Build package
         run: pyinstaller --noconfirm --onefile --windowed --icon "pictures/icon.ico" --add-data $HOME"/.venv/lib/python3.11/site-packages/customtkinter;customtkinter"  "csc.py"
 
