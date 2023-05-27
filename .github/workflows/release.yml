@@ -30,7 +30,7 @@ jobs:
           ls
       
       - name: Build package
-        run: pyinstaller --noconfirm --onefile --windowed --icon "pictures/icon.ico" --add-data "/ForCustomTkinter/customtkinter;customtkinter/"  "csc.py"
+        run: pyinstaller --noconfirm --onefile --windowed --icon "pictures/icon.ico" --add-data "/.venv/lib/python3.11/site-packages/customtkinter;customtkinter/"  "csc.py"
 
       - name: Get latest release version
         id: get_latest_release
