@@ -1,4 +1,4 @@
-import main
+import csc
 
 import pytest
 import os
@@ -9,7 +9,7 @@ from tkinter import Tk
 @pytest.fixture
 def app():
     # Створює екземпляр класу перед кожним тестом
-    app = main.App()
+    app = csc.App()
     yield app
     app.destroy()
 
