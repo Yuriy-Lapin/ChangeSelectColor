@@ -31,7 +31,7 @@ jobs:
           pip show customtkinter
           
       - name: Build package
-        run: pyinstaller --noconfirm --onefile --windowed --icon "pictures/icon.ico" --add-data "C:/hostedtoolcache/windows/Python/3.11.3/x64/Li/site-packages/customtkinter;customtkinter"  "csc.py"
+        run: pyinstaller --noconfirm --onefile --windowed --icon "pictures/icon.ico" --add-data "C:\hostedtoolcache\windows\Python\3.11.3\x64\Lib\site-packages\customtkinter;customtkinter"  "csc.py"
           
       - name: Release
         uses: softprops/action-gh-release@v1
