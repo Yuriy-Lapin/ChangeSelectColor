@@ -12,7 +12,7 @@ Introducing "Change Select Colour" – the mischievous program that adds a touch
 Представляємо вам "Change Select Colour" - пустотливу програму, яка додасть нотку примхливості вашому робочому столу Windows! Втомилися від одного і того ж старого нудного кольору виділення? Попрощайтеся з монотонністю і привітайте яскраві витівки!
 </details>
 
-<details><summary> 123 </summary>
+
 ![alt text](https://github.com/Yuriy-Lapin/sdas/raw/main/pictures/pdocumentation/1.png)
 ![alt text](https://github.com/Yuriy-Lapin/sdas/raw/main/pictures/pdocumentation/nyan-cat-meme.gif)
-</details>
+
