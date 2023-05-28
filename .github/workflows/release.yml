@@ -26,7 +26,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Build package
-        run: pyinstaller --noconfirm --onefile --windowed --icon "pictures/icon.ico" --add-data "/opt/hostedtoolcache/Python/3.11.3/x64/lib/python3.11/site-packages/customtkinter:customtkinter"  "csc.py"
+        run: pyinstaller --noconfirm --onefile --windowed --icon "pictures/icon.ico" --add-data "/opt/hostedtoolcache/Python/3.11.3/x64/lib/python3.11/site-packages/customtkinter;customtkinter"  "csc.py"
           
       - name: Release
         uses: softprops/action-gh-release@v1
