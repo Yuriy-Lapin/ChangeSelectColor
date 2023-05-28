@@ -13,5 +13,5 @@ Introducing "Change Select Colour" – the mischievous program that adds a touch
 </details>
 
 <details><summary> 123 </summary>
-![alt text](https://github.com/Yuriy-Lapin/sdas/blob/develop/pictures/documentation/nyan-cat-meme.giff)
+![alt text](https://github.com/Yuriy-Lapin/sdas/raw/main/pictures/pdocumentation/1.png)
 </details>
