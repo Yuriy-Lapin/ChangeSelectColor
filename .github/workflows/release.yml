@@ -31,6 +31,8 @@ jobs:
       - name: WHERE CSC.EXE ?)
         run: |
           ls
+          cd dist
+          ls
       
       - name: Release
         uses: softprops/action-gh-release@v1
