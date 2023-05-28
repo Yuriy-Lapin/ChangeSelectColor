@@ -9,7 +9,7 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
@@ -27,17 +27,6 @@ jobs:
 
       - name: Build package
         run: pyinstaller --noconfirm --onefile --windowed --icon "pictures/icon.ico" --add-data "/opt/hostedtoolcache/Python/3.11.3/x64/lib/python3.11/site-packages/customtkinter:customtkinter"  "csc.py"
-      
-      - name: WHERE CSC.EXE ?)
-        run: |
-          ls
-          echo =-=-=-=-=-=-=-=-=-=-=-=-=-
-          cd dist
-          ls
-          echo =-=-=-=-=-=-=-=-=-=-=-=-=-
-          cd csc
-          ls
-          echo =-=-=-=-=-=-=-=-=-=-=-=-=-
           
       - name: Release
         uses: softprops/action-gh-release@v1
