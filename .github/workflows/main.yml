@@ -49,3 +49,7 @@ jobs:
       # Запуск тестів
       - name: Run tests with pytest
         run: pytest
+      
+      - name: Merge development into main
+        run: git merge develop
+
