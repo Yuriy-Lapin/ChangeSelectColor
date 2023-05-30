@@ -1,18 +1,22 @@
 name: Nightly Tests
 
+# Запускається за розкладом
 on:
   schedule:
     - cron: "0 23 * * *"
 
 jobs:
   nightly-tests:
+  
+    # Визначення налаштувань для матриці запуску
     runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
 
+    # Визначення кроків
     steps:
+    
       # Копіювання репозиторію
       - name: Checkout repository
         uses: actions/checkout@v3
