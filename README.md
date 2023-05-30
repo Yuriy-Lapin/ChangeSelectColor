@@ -1,6 +1,6 @@
 # Change Select Color
 
-[![CI](https://github.com/Yuriy-Lapin/sdas/actions/workflows/main.yml/badge.svg)](https://github.com/Yuriy-Lapin/sdas/actions/workflows/main.yml)
+[![CI](https://github.com/Yuriy-Lapin/ChangeSelectColor/actions/workflows/CI.yml/badge.svg)](https://github.com/Yuriy-Lapin/ChangeSelectColor/actions/workflows/CI.yml)
 [![Nightly Tests](https://github.com/Yuriy-Lapin/sdas/actions/workflows/nightly-test.yml/badge.svg)](https://github.com/Yuriy-Lapin/sdas/actions/workflows/nightly-test.yml)
 [![Build and Publish Release](https://github.com/Yuriy-Lapin/sdas/actions/workflows/release.yml/badge.svg)](https://github.com/Yuriy-Lapin/sdas/actions/workflows/release.yml)
 
