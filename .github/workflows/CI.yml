@@ -1,6 +1,6 @@
 name: CI
 
-# Запускається при пуші у
+# Запускається при події push у
 # будь яку гілку, окрім main
 on:
   push:
@@ -9,18 +9,21 @@ on:
 
 jobs:
   test:
+  
+    # Визначення налаштувань для матриці запуску
     runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
 
+    # Визначення кроків
     steps:
+    
       # Копіювання репозиторію
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Налаштування Пітону 3.11
+      # Налаштування Python 3.11
       - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
@@ -41,7 +44,7 @@ jobs:
           sudo Xvfb :99 -ac &
           export DISPLAY=:99
 
-      # Налаштування віртуального монітору для запуску тестів на Windows
+      # Для Windows не потрібно налаштовувати віртуальний монітор
       - name: Set up Xvfb and display variable (Windows)
         if: matrix.os == 'windows-latest'
         run: echo "Skipping Xvfb setup for Windows"
